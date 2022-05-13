@@ -8,5 +8,7 @@ RUN		apt-get install -y \
 
 # COPY	#파일 추가할 것을 써둬야함.
 
-#CMD 	[ "executable" ]
+EXPOSE	443
+
+CMD 	[ "nginx", "-g", "daemon off;" ]
 # 컨테이너에서 실행할 명령을 입력
