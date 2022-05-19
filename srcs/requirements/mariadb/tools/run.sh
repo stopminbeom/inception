@@ -13,7 +13,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 	
 	chown -R mysql:mysql /var/lib/mysql
 
-	mysql_install_db --user=mysql --basedir=/var/lib/mysql --datadir=/opt/mysql/mysql/data > /dev/null
+	mysql_install_db --user=mysql --basedir=/opt/mysql/mysql --datadir=/opt/mysql/mysql/data > /dev/null
 
 	tfile=`mktemp`
 	if [ ! -f "$tfile" ]; then
@@ -28,5 +28,7 @@ GRANT ALL ON *.* TO 'root'@'localhost' identified by '$MYSQL_ROOT_PASSWORD' WITH
 SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${MYSQL_ROOT_PASSWORD}') ;
 DROP DATABASE IF EXISTS test ;
 FLUSH PRIVILEGES ;
+
+
 
 EOF
