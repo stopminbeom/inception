@@ -29,6 +29,21 @@ SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${MYSQL_ROOT_PASSWORD}') ;
 DROP DATABASE IF EXISTS test ;
 FLUSH PRIVILEGES ;
 
-
+CREATE DATABASE $MYSQL_NAME CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER '$MYSQL_USER'@'%' IDENTIFIED by '$MYSQL_PWD';
+GRANT ALL PRIVILEGES ON $MYSQL_NAME.* TO '$MYSQL_USER'@'%';
+CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED by '$MYSQL_PWD';
+GRANT ALL PRIVILEGES ON $MYSQL_NAME.* TO '$MYSQL_USER'@'localhost';
+FLUSH PRIVILEGES ;
 
 EOF
+
+	/usr/bin/mysql --user=mysql --bootstrap < $tfile
+	rm -f $tfile
+
+fi
+
+# allow all incoming connections
+# https://wiki.alpinelinux.org/wiki/MariaDB
+sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/my.cnf.d/mariadb-server.cnf
+sed -i "s|.*skip-networking.*|skip-networking|g" /etc/my.cnf.d/mariadb-server.cnf

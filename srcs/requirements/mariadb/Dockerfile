@@ -11,4 +11,4 @@ COPY	tools/run.sh scripts/run.sh
 RUN		chmod -R 755 /scripts
 
 EXPOSE	3306
-ENTRYPOINT [ "/scripts/run.sh" ]
+ENTRYPOINT [ "sh", "/scripts/run.sh" ]
