@@ -1,14 +1,12 @@
-FROM	debian:buster
+FROM	alpine:3.15
 
-LABEL	MAINTAINER="mseo@student.42seoul.kr"
+LABEL	maintainer="MinBeom Seo <mseo@student.42seoul.kr>"
 
-RUN		apt-get update && apt-get upgrade -y
-RUN		apt-get install -y \
-		nginx
+# apk -U upgrade = apk update && apk upgrade
+RUN		apk -U upgrade && \
+		apk add --no-cache nginx openssl
 
-# COPY	#파일 추가할 것을 써둬야함.
+
 
 EXPOSE	443
-
-CMD 	[ "nginx", "-g", "daemon off;" ]
-# 컨테이너에서 실행할 명령을 입력
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
