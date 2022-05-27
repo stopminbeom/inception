@@ -1,0 +1,62 @@
+version: "3.8"
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: "mariadb"
+    volumes:
+      - "db_data:/var/lib/mysql"
+    expose:
+      - "3306"
+    env_file:
+      - "./env"
+    networks:
+      - net
+    restart: on-failure
+
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: "wordpress"
+    expose:
+      - "9000"
+    depends_on:
+      - mariadb
+    volumes:
+      - "wordpress_data:/var/www/html/wordpress"
+    env_file:
+      - "./env"
+    restart: on-failure
+
+  ngnix:
+    build: ./requirements/ngnix
+    container_name: "ngnix"
+    ports:
+      - "433:433"
+    volumes:
+      - "wordpress_data:/var/www/html/wordpress"
+    depends_on:
+      - wordpress
+    networks:
+      - net
+    expose:
+      - "443"
+    restart: on-failure
+
+networks:
+  net:
+    driver: brige
+    name: net
+
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      device: "/home/mseo/data/mariadb"
+      o: bind
+      type: volume
+
+  wordpress_data:
+    driver: local
+    driver_opts:
+      device: "/home/mseo/data/wordpress"
+      o: bind
+      type: volume
