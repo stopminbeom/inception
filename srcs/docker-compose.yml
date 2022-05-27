@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 services:
   mariadb:
     build: ./requirements/mariadb
@@ -8,7 +8,7 @@ services:
     expose:
       - "3306"
     env_file:
-      - "./env"
+      - "./.env"
     networks:
       - net
     restart: on-failure
@@ -23,11 +23,11 @@ services:
     volumes:
       - "wordpress_data:/var/www/html/wordpress"
     env_file:
-      - "./env"
+      - "./.env"
     restart: on-failure
 
   ngnix:
-    build: ./requirements/ngnix
+    build: ./requirements/nginx
     container_name: "ngnix"
     ports:
       - "433:433"
@@ -43,8 +43,7 @@ services:
 
 networks:
   net:
-    driver: brige
-    name: net
+    driver: bridge
 
 volumes:
   db_data:
