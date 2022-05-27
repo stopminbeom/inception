@@ -26,9 +26,9 @@ services:
       - "./.env"
     restart: on-failure
 
-  ngnix:
+  nginx:
     build: ./requirements/nginx
-    container_name: "ngnix"
+    container_name: "nginx"
     ports:
       - "433:433"
     volumes:
