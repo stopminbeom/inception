@@ -38,7 +38,7 @@ FLUSH PRIVILEGES ;
 
 EOF
 
-	/usr/bin/mysql --user=mysql --bootstrap < $tfile
+	/usr/bin/mysqld --user=mysql --bootstrap < $tfile
 	rm -f $tfile
 
 fi
