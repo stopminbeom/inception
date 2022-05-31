@@ -10,7 +10,7 @@ RUN		ls -alR /etc/ssl && \
 		mkdir -p /etc/nginx/ssl && \
 		mkdir -p /etc/ssl/cert && \
 		openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
-		-out /etc/ssl/certs/localhost.crt -keyout /etc/ssl/private/localhost.pem \
+		-out /etc/ssl/certs/localhost.crt -keyout /etc/ssl/private/localhost.key \
 		-subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=Seo/CN=localhost"
 		#chmod 600 /etc/ssl/certs/localhost.crt /etc/ssl/private/localhost.key
 
