@@ -1,6 +1,7 @@
 #!/bin/sh
 
-docker rm $(docker ps -qa);
-docker rmi -f $(docker ps -qa);
-docker rmi `sudo docker images -a`;
-docker volume rm $(docker volume ls -q);
+docker stop $(docker ps -qa); docker rm $(docker ps -qa);
+docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q);
+docker network rm $(docker network ls -q) 2>/dev/null
+rm -rf /home/mseo/data/wordpress/*
+rm -rf /home/mseo/data/mysql/*

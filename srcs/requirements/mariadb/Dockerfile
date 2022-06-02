@@ -8,7 +8,7 @@ RUN		apk -U upgrade && \
 
 RUN		mkdir -p /scripts
 COPY	tools/run.sh /scripts/run.sh
-RUN		chmod -R 755 /scripts/run.sh
+RUN		chmod +x /scripts/run.sh
 
 EXPOSE	3306
 ENTRYPOINT [ "sh", "/scripts/run.sh" ]
