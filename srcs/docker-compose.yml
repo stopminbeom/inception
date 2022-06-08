@@ -16,6 +16,8 @@ services:
   wordpress:
     build: ./requirements/wordpress
     container_name: "wordpress"
+    networks:
+      - net
     expose:
       - "9000"
     depends_on:
