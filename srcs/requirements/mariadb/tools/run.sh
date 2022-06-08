@@ -13,11 +13,11 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 	
 	chown -R mysql:mysql /var/lib/mysql
 
-	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql > /dev/null
+	mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql > /dev/null
 
 	tfile=`mktemp`
 	if [ ! -f "$tfile" ]; then
-	    return 1
+		return 1
 	fi
 
 	cat << EOF > $tfile
