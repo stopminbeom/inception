@@ -13,7 +13,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 	
 	chown -R mysql:mysql /var/lib/mysql
 
-	mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql > /dev/null
+	# init database
+	mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm > /dev/null
 
 	tfile=`mktemp`
 	if [ ! -f "$tfile" ]; then
@@ -34,18 +35,17 @@ CREATE USER '$MYSQL_USER'@'%' IDENTIFIED by '$MYSQL_PWD';
 GRANT ALL PRIVILEGES ON $MYSQL_NAME.* TO '$MYSQL_USER'@'%';
 CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED by '$MYSQL_PWD';
 GRANT ALL PRIVILEGES ON $MYSQL_NAME.* TO '$MYSQL_USER'@'localhost';
-FLUSH PRIVILEGES ;
 
+FLUSH PRIVILEGES;
 EOF
-
+	# run init.sql
 	/usr/bin/mysqld --user=mysql --bootstrap < $tfile
 	rm -f $tfile
-
 fi
 
-# allow all incoming connections
+# allow remote connections
 # https://wiki.alpinelinux.org/wiki/MariaDB
-sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/my.cnf.d/mariadb-server.cnf
 sed -i "s|skip-networking|# skip-networking|g" /etc/my.cnf.d/mariadb-server.cnf
+sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/my.cnf.d/mariadb-server.cnf
 
 exec /usr/bin/mysqld --user=mysql --console

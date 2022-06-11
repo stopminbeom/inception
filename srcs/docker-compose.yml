@@ -51,7 +51,7 @@ volumes:
   db_data:
     driver: local
     driver_opts:
-      device: '/home/mseo/data/mariadb'
+      device: '/home/mseo/data/mysql'
       o: bind
       type: volume
 

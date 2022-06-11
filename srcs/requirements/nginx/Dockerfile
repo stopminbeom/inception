@@ -12,7 +12,7 @@ RUN		apk -U upgrade && \
 		-subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=Seo/CN=localhost"
 		#chmod 600 /etc/ssl/certs/localhost.crt /etc/ssl/private/localhost.key
 
-COPY	./conf/default.conf /etc/nginx/http.d/default.conf
+COPY	./conf/default /etc/nginx/http.d/default
 
 EXPOSE	443
 ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
