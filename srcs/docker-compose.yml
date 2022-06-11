@@ -51,13 +51,13 @@ volumes:
   db_data:
     driver: local
     driver_opts:
-      device: "/home/mseo/data/mariadb"
+      device: '/home/mseo/data/mariadb'
       o: bind
       type: volume
 
   wordpress_data:
     driver: local
     driver_opts:
-      device: "/home/mseo/data/wordpress"
+      device: '/home/mseo/data/wordpress'
       o: bind
       type: volume
