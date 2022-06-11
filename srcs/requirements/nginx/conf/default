@@ -6,7 +6,7 @@ server {
 
 	index index.html index.htm index.php;
 
-	server_name inception_42;
+	server_name mseo.42.fr;
 	
 	ssl_certificate /etc/ssl/certs/localhost.crt;
 	ssl_certificate_key /etc/ssl/private/localhost.key;
