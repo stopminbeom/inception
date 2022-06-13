@@ -38,7 +38,6 @@ GRANT ALL PRIVILEGES ON $MYSQL_NAME.* TO '$MYSQL_USER'@'localhost';
 
 FLUSH PRIVILEGES;
 EOF
-	# run init.sql
 	/usr/bin/mysqld --user=mysql --bootstrap < $tfile
 	rm -f $tfile
 fi
