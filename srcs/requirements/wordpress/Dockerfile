@@ -1,9 +1,7 @@
-FROM	alpine:3.15
+FROM alpine:3.15
 
-LABEL	maintainer="MinBeom Seo <mseo@student.42seoul.kr>"
+LABEL maintainer="MinBeom Seo <mseo@student.42seoul.kr>"
 
-# apk -U upgrade = apk update && apk upgrade
-# https://wiki.alpinelinux.org/wiki/WordPress
 RUN apk update && apk upgrade && apk add --no-cache \
         wget tar \
         php7 php7-fpm php7-opcache php7-mysqli \

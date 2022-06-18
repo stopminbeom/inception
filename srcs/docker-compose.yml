@@ -6,28 +6,28 @@ services:
     image: "mariadb"
     volumes:
       - "db_data:/var/lib/mysql"
-    expose:
-      - "3306"
-    env_file:
-      - ".env"
     networks:
       - net
+    env_file:
+      - ".env"
+    expose:
+      - "3306"
     restart: on-failure
 
   wordpress:
     build: ./requirements/wordpress
     container_name: "wordpress"
     image: "wordpress"
-    networks:
-      - net
-    expose:
-      - "9000"
     depends_on:
       - mariadb
     volumes:
       - "wordpress_data:/var/www/html/wordpress"
     env_file:
       - ".env"
+    networks:
+      - net
+    expose:
+      - "9000"
     restart: on-failure
 
   nginx:
@@ -35,11 +35,11 @@ services:
     container_name: "nginx"
     image: "nginx"
     ports:
-      - "433:433"
-    volumes:
-      - "wordpress_data:/var/www/html/wordpress"
+      - "443:443"
     depends_on:
       - wordpress
+    volumes:
+      - "wordpress_data:/var/www/html/wordpress"
     networks:
       - net
     expose:
@@ -53,17 +53,17 @@ networks:
 
 volumes:
   db_data:
-    driver: local
     name: db_data
+    driver: local
     driver_opts:
+      type: 'none'
       device: '/home/mseo/data/mysql'
       o: bind
-      type: volume
 
   wordpress_data:
-    driver: local
     name: wordpress_data
+    driver: local
     driver_opts:
+      type: 'none'
       device: '/home/mseo/data/wordpress'
       o: bind
-      type: volume
