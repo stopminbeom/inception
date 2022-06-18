@@ -8,13 +8,18 @@ $(NAME):
 	mkdir -p /home/mseo/data/mysql
 	sudo docker-compose -f $(SRC) up -d
 
-clean:
-	sudo docker-compose -f $(SRC) stop --rmi all
+clean: stop
+	sudo docker-compose -f $(SRC) down --rmi all
 
 fclean:
 	sudo sh cleanup.sh
 
-re:
-	fclean all
+stop:
+	sudo docker-compose -f $(SRC) stop
 
-.PHONY: re clean fclean
+re: clean all
+
+logs:
+	sudo docker-compose -f $(SRC) logs
+
+.PHONY: re clean fclean logs stop
